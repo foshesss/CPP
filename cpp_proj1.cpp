@@ -2,10 +2,19 @@
 
 using namespace std;
 
-int main() {
+int add(int a, int b) {
+    return a + b;
+}
 
-    int a, b = 1;
+int main() {
+    int a = 1;
+    int b = 2;
+
+    for (int i = 0; i < 10; i++) {
+        a++;
+    }
+
     cout << a << "\n";
     cout << b << "\n";
-    cout << "Sum: " << a + b << "\n";
+    cout << "Sum: " << add(a, b) << "\n";
 }
