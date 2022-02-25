@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h> 
-#include <time.h>  
+#include <time.h>
 #include "Entity.h"
 
 using namespace std;
