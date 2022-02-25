@@ -1,5 +1,8 @@
 #include <iostream>
-#include "Circle.h"
+#include <string>
+#include <stdlib.h> 
+#include <time.h>  
+#include "Entity.h"
 
 using namespace std;
 
@@ -9,37 +12,37 @@ using namespace std;
     This is sort of my introduction to C++. To be honest, I am only
     really learning because I know it's a super useful language, but alsooo
     I saw that you can embed Lua into it, which looks super interesting.
-
-[MAIN]:
-    The main method of this file currently creates a Circle object, sets the radius, and
-    then prints the radius.
 */
 
 int main() {
-    Circle c;
-    cout << c.CalculateArea() << '\n';
+    Entity player(10, 50);
+    Entity enemy(5, 25);
 
-    Circle d(10);
-    cout << d.CalculateArea() << '\n';
+    bool battle_decided = false;
+    string last_attacker;
 
-    cout << c.CalculateArea() << '\n';
+    // entity cannot attack itself :rolling_eyes_emoji:
+    player.Attack(&player);
+
+    // generate random seed
+    srand(time(NULL));
+
+    // continue battling to the death.
+    while (battle_decided == false) {
+        int attacker = rand() % 2 + 1;
+
+        if (attacker == 1) {
+            battle_decided = player.Attack(&enemy);
+            last_attacker = "PLAYER"; 
+        } else {
+            battle_decided = enemy.Attack(&player);
+            last_attacker = "ENEMY";
+        }
+
+       cout << last_attacker << " ATTACKS!\n";
+    }
+
+    cout << last_attacker << " WINS!\n";
+    enemy.PrintStats();
+    player.PrintStats();
 }
-
-// Legacy Code (no longer used):
-
-// int add(int a, int b) {
-//     return a + b;
-// }
-
-// class Circle {
-//     int radius;
-//     public:
-//         void set_radius(int);
-//         float area() {
-//             return PI * pow(radius, 2.0);
-//         }
-// };
-
-// void Circle::set_radius(int r) {
-//     radius = r;
-// }
