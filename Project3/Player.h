@@ -1,18 +1,20 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <vector>
+#include "Entity.h"
 
 using namespace std;
 
-class Player {
+class Player : public Entity {
     private:
-        vector<int> inventory;
 
     public:
-        Player();
+        Player(int, int);
         bool AddItemToInventory();
         bool RemoveItemFromInventory(int);
+
+        virtual bool Attack(Entity*);
+        virtual bool Died(Entity*);
 };
 
-#endif PLAYER_H
+#endif

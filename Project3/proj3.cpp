@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Player.h"
 
 using namespace std;
 
@@ -29,5 +30,10 @@ using namespace std;
 */
 
 int main() {
+    Player p1(50, 25);
+    Player p2(5, 25);
+
+    p1.Attack(&p2);
+    
     return 0;
 }
