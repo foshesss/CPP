@@ -29,17 +29,13 @@ using namespace std;
     goodnight, 2/26/22 (4:34am)
 */
 
-// Credit: https://www.tutorialspoint.com/cplusplus-equivalent-of-instanceof
-template<typename Base, typename T>
-inline bool instanceof(const T*) {
-   return is_base_of<Base, T>::value;
-}
-
 class Entity {
     private:
         int atk, health, max_health;
     
     public:
+        string tag;
+
         Entity(int atk, int health) {
             this->atk = atk;
             this->health = health;
@@ -77,6 +73,7 @@ class Player : public Entity {
         Player(int atk, int health) : Entity(atk, health) {
             this->inventory.insert(pair<int, int>(1, 1));
             this->inventory.insert(pair<int, int>(10, 5));
+            this->tag = "Player";
         };
 
         void print_stats() {
@@ -96,6 +93,7 @@ class Player : public Entity {
             e->TakeDamage(this);
         };
 
+        // Nobody benefits from killing players. D:
         bool Died(Entity* _) {
             // lose inventory or something
             cout << "wow! i died!" << endl;
@@ -111,10 +109,14 @@ class Enemy : public Entity {
     public:
         Enemy(int atk, int health) : Entity(atk, health) {
             // init some drops
+            this->tag = "Enemy";
         };
 
         void Attack(Entity* e) {
-            e->TakeDamage(this);
+            for (int i = 0; i < 3; i++) {
+                cout << "ATTACKING!" << endl;
+                e->TakeDamage(this);
+            }
         };
 
         bool Died(Entity* e) {
@@ -122,9 +124,9 @@ class Enemy : public Entity {
            // TODO: figure out if this is a Player. gotta be a way. OR
            // hacky way: private _tag variable, with :GetTag() method..? 
 
-            cout << instanceof<Player>(e) << endl;
+            string tag = e->tag;
 
-            if (instanceof<Player>(e) == true) {
+            if (tag == "Player") {
                 cout << "Defeated by a player!" << endl;
             } else {
                 cout << "oh no! I have been defeated!" << endl;
@@ -133,11 +135,38 @@ class Enemy : public Entity {
         };
 };
 
+void print_commands() {
+    cout << "Commands: " << endl;
+    cout << "'PrintStats' : Print your stats.'" << endl;
+    cout << "'Attack' : Attack an enemy." << endl;
+    cout << "'Exit' : Exit the program." << endl;
+}
+
 int main() {
     Player p1(25, 25);
     Enemy e(5, 5);
 
-    p1.Attack(&e);
+    cout << endl;
+    print_commands();
+    cout << endl;
+
+    while (true) {
+        cout << "Input a command: ";
+        string command;
+        cin >> command;
+
+        if (command == "PrintStats") {
+            p1.print_stats();
+        } else if (command == "Attack") {
+            p1.Attack(&e);
+        } else if (command == "Exit") {
+            break;
+        } else if (command == "help") {
+            print_commands();
+        } else {
+            cout << "Invalid command. Type 'help' for a list of all commands." << endl;
+        }
+    }
     
     return 0;
 }
