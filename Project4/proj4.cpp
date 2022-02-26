@@ -83,13 +83,39 @@ class Circle : public Shape {
         }
 };
 
+class Triangle : public Shape {
+    private:
+        int length;
+        int height;
+    
+    public:
+        Triangle(string color, int length, int height) : Shape(color) {
+            this->length = length;
+            this->height = height;
+        };
+
+        float area() {
+            return .5 * length * height;
+        };
+
+        void print_info() {
+            Shape::print_info();
+            cout << "Height: " << this->height << '\n';
+            cout << "Length: " << this->length << '\n';
+            cout << "Area: " << Triangle::area() << '\n';
+        }
+};
+
 int main() {
     Square s("yellow", 5, 6);
     Circle c("red", 5);
+    Triangle t("blue", 4, 10);
 
     s.print_info();
     cout << "------\n";
     c.print_info();
+    cout << "------\n";
+    t.print_info();
 
     return 0;
 }
