@@ -15,6 +15,3 @@ Link: [Discord](https://discord.gg/STzsSyBRNB)
 I haven't been alone when learning. Some sites that I frequently use to look up data structure methods:
   - StackOverflow - random questions
   - [CPlusPlus.com](https://www.cplusplus.com)
-
-## Notices
-I likely will not go through and document the Advent of Code heavily. That's sort of just been a practice for me, rather than preparing it for people to look at. All of the projects will be heavily documented, soooo yeah. Derp
