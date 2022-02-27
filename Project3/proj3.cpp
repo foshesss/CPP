@@ -32,9 +32,9 @@ using namespace std;
 class Entity {
     private:
         int atk, health, max_health;
+        string tag;
     
     public:
-        string tag;
 
         Entity(int atk, int health) {
             this->atk = atk;
@@ -44,6 +44,14 @@ class Entity {
 
         int GetAtkStat() {
             return this->atk;
+        }
+
+        string GetTag() {
+            return this->tag;
+        }
+
+        void SetTag(string tag) {
+            this->tag = tag;
         }
 
         virtual void print_stats() {
@@ -73,7 +81,7 @@ class Player : public Entity {
         Player(int atk, int health) : Entity(atk, health) {
             this->inventory.insert(pair<int, int>(1, 1));
             this->inventory.insert(pair<int, int>(10, 5));
-            this->tag = "Player";
+            Entity::SetTag("Player");
         };
 
         void print_stats() {
@@ -109,7 +117,7 @@ class Enemy : public Entity {
     public:
         Enemy(int atk, int health) : Entity(atk, health) {
             // init some drops
-            this->tag = "Enemy";
+            Entity::SetTag("Enemy");
         };
 
         void Attack(Entity* e) {
@@ -121,10 +129,7 @@ class Enemy : public Entity {
 
         bool Died(Entity* e) {
 
-           // TODO: figure out if this is a Player. gotta be a way. OR
-           // hacky way: private _tag variable, with :GetTag() method..? 
-
-            string tag = e->tag;
+            string tag = e->GetTag();
 
             if (tag == "Player") {
                 cout << "Defeated by a player!" << endl;
@@ -166,6 +171,8 @@ int main() {
         } else {
             cout << "Invalid command. Type 'help' for a list of all commands." << endl;
         }
+
+        cout << endl;
     }
     
     return 0;
